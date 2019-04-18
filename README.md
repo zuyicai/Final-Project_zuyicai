@@ -5,22 +5,65 @@ Zuyi Cai
 [Link to this repository](https://github.com/zuyicai/Final-Project_zuyicai)
 
 ---
+## At This Moment(For Check in Assignment)
+1. I have SI507project_tools.py including all classes(National_Park, State, Topic, Activity and Type) I will use for my project.
+I have caching.py to scrape the data I will use for my project. In which it will create allinfo_parks.json and states_info.csv, topics_info.csv, activities_info.csv. And these three csvs I will use in SI507project_tools.py to write in the database.
+I have parks.csv, which is copyed from project4, I will directly use this data in one of my route of flask.
+In SI507project_tools.py, I created all classes and write the data into the database by three functions(get_or_create_topic, get_or_create_activities, get_or_create_states). I used a new module called selenium to create a fake chrome to scrap data from a website needed higher permission. And I used another new module called wtforms to create the form view in my flask application. 
+
+At this point, I have access to ALL of the data I need for my project.(one is got from caching.py and another one is parks.csv from project 4)
+
+2. I have a code file SI507project_tests.py which includes a test suite with reasonable tests for the code in SI507project_tools.py. Although it couldn't pass at this moment, I am trying to test the data input of the database.
+
+3. I created milestones and issues at the beginning of my project and now some of them are completed.
+
+4. This is a draft of my README.md file, using the README template. It's not complete at this time but I already did the completed parts and leave the remaining to be finished. Next, I need to write html file to design the view of flask url, such as the table and the form. And the second route(\parks) still need to write data information into the output.
+
+5. Here I show the database schema diagram showing the tables I had in my database. Here I plan to use many to many relationship, but I haven't done it(Already satisfy 6 requirements, I decide to do it if I have time)
+* ![Alt text](https://github.com/zuyicai/image/blob/master/db_final.png)
 
 ## Project Description
 
 My Project is designed for people who want to search detailed information of National Parks in the US and who want to get a straightforward instruction of all parks. In my Flask application, users are able to get identical park travel plan determined by their own interests.
 
+
+
 ## How to run
 
-1. First, you should ... (e.g. install all requirements with `pip install -r requirements.txt`)
-2. Second, you should ... (e.g. run `python SI507project_tools.py` or whatever else is appropriate)
-3. Anything else
+* Anaconda installed
+* Open your terminal window! `cd` to the place where you want this project to go.
+* This repository cloned to somewhere in your computer (the place).
+```
+git clone <git url>
+```
+* `cd` into where the project lives
+* Create a virtual environment for it
+```
+virtualenv env
+```
+* Activate the virtual environment
+```
+$ source <projectname>-env/bin/activate    # For Mac/Linux...
+$ source <projectname>-env/Scripts/activate    # For Windows
+(finalproject-env) $     # you've succeeded if you see this after!
+```
+* install all requirement
+```
+pip install -r requirements.txt
+```
+```
+Deactivate
+```
+* Just run the program!
+```
+python SI507project_tools.py
+```
+* Check out what’s happening in your terminal window!
 
 ## How to use
 
 1. A useful instruction goes here
 2. A useful second step here
-3. (Optional): Markdown syntax to include an screenshot/image: ![alt text](image.jpg)
 
 ## Routes in this application
 - `/` -> The home page of the Flask application
@@ -49,6 +92,7 @@ NOTE: Need not have 3 steps, but should have as many as are appropriate!
 - caching.py
 - parks.csv
 - advanced_expiry_caching.py
+- chromedriver
 
 ---
 ## Code Requirements for Grading
