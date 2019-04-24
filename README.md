@@ -20,6 +20,7 @@ At this point, I have access to ALL of the data I need for my project.(one is go
 4. This is a draft of my README.md file, using the README template. It's not complete at this time but I already did the completed parts and leave the remaining to be finished. Next, I need to write html file to design the view of flask url, such as the table and the form. And the second route(\parks) still need to write data information into the output.
 
 5. Here I show the database schema diagram showing the tables I had in my database. Here I plan to use many to many relationship, but I haven't done it(Already satisfy 6 requirements, I decide to do it if I have time)
+* [Link to this diagram](https://github.com/zuyicai/Final-Project_zuyicai/blob/master/db_final.png)
 * ![Alt text](https://github.com/zuyicai/image/blob/master/db_final.png)
 
 ## Project Description
