@@ -8,8 +8,70 @@ import requests,os
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from sqlalchemy.orm import relationship
 import time
 
+##########scraping data from the website: states, topics, activities
+FILENAME = "allinfo_parks.json" # saved in variable with convention of all-caps constant
+program_cache = Cache(FILENAME) # create a cache -- stored in a file of this name
+
+url = "https://www.nps.gov/findapark/advanced-search.htm?p=1&v=0" #url can act as identifier for caching in a scraping situation -- it IS frequently unique here, unlike in query requests
+
+data = program_cache.get(url)
+if not data:
+    data = requests.get(url).text
+    program_cache.set(url, data, expire_in_days=1)
+
+
+soup = BeautifulSoup(data, "html.parser") # html.parser string argument tells BeautifulSoup that it should work in the nice html way
+states = soup.find_all(id="form-park")
+activities = soup.find_all(id="form-activity")
+topics = soup.find_all(id="form-topic")
+
+states_name=[]
+for state in states:
+    b=state.find_all('option')
+    for i in range(len(b)):
+        c=b[i]['value'],b[i].text
+        states_name.append(c)
+
+
+activities_name=[]
+for activity in activities:
+    b=activity.find_all('option')
+    for i in range(len(b)):
+        c=b[i]['value'],b[i].text
+        activities_name.append(c)
+
+topics_name=[]
+for topic in topics:
+    b=topic.find_all('option')
+    for i in range(len(b)):
+        c=b[i]['value'],b[i].text
+        topics_name.append(c)
+
+
+with open('states_info.csv','w') as f:
+    writecsv = csv.writer(f)
+    writecsv.writerow(['value','name'])
+    for i in range(len(states_name)-1):
+        writecsv.writerow([states_name[i+1][0],states_name[i+1][1]])
+
+with open('activities_info.csv','w') as f:
+    writecsv = csv.writer(f)
+    writecsv.writerow(['value','name'])
+    for i in range(len(activities_name)):
+        writecsv.writerow([activities_name[i][0],activities_name[i][1]])
+
+with open('topics_info.csv','w') as f:
+    writecsv = csv.writer(f)
+    writecsv.writerow(['value','name'])
+    for i in range(len(topics_name)):
+        writecsv.writerow([topics_name[i][0],topics_name[i][1]])
+
+
+###########################
+###########################
 
 
 app = Flask(__name__)
@@ -29,6 +91,7 @@ class State(db.Model):
     name = db.Column(db.String(64))
     value = db.Column(db.String(64))
     # park_id = db.Column(db.Integer, db.ForeignKey("National_Park.id")) #ok to be null for now
+    # park = relationship("National_Park", backref="states")# many to many
 
 
     def __repr__(self):
@@ -56,7 +119,7 @@ class Type(db.Model):
     __tablename__="Types"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64))
-    # park_id = db.Column(db.Integer, db.ForeignKey("National_Park.id"))
+    park = relationship("National_Park", backref="typeee")# one to many
 
 
     def __repr__(self):
@@ -65,13 +128,13 @@ class Type(db.Model):
 class National_Park(db.Model):
     __tablename__="National_Park"
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64))
-    location = db.Column(db.String(64))
-    description = db.Column(db.String(64))
-    # states = db.relationship("States",backref="National_Park")#park-state: one to many
-    # type = db.relationship("Type", backref=db.backref("National_Park", uselist=False))# park-type: one to one
-
-
+    name = db.Column(db.String())
+    type = db.Column(db.String())
+    location = db.Column(db.String())
+    description = db.Column(db.String())
+    value = db.Column(db.String())
+    type_id = db.Column(db.Integer, db.ForeignKey("Types.id"))#type-parks:one to many
+    # state_id = db.Column(db.Integer, db.ForeignKey("States.id"))#park-states: many to many
 
     def __repr__(self):
         return "{}:\nLocation: {}\n{}".format(self.name,self.location,self.description)
@@ -128,35 +191,54 @@ states_info = pd.read_csv('states_info.csv')
 for i in range(len(states_info)):
     get_or_create_states(states_info['name'][i],states_info['value'][i])
 
+######write types from parks.csv
+def get_and_write_types(tname):
+    t = Type.query.filter_by(name = tname).first()
+    if t:
+        return t
+    else:
+        t = Type(name = tname)
+        session.add(t)
+        session.commit()
+        return t
+
+types_info = pd.read_csv('parks.csv')
+types_info.drop_duplicates(subset='Type',inplace=True)
+types_info=types_info.reset_index()
+
+for i in range(len(types_info)):
+    get_and_write_types(types_info['Type'][i])
+
+
+####write data from parks.csv
+def get_and_write_parks(pname,ptype,plocation,pdescription,pvalue):
+    p = National_Park.query.filter_by(name = pname.decode('utf-8'), type = ptype.decode('utf-8'), location = plocation.decode('utf-8'), description=pdescription.decode('utf-8'),value = pvalue.decode('utf-8')).first()
+    if p:
+        return p
+    else:
+        ty = get_and_write_types(ptype)
+        p = National_Park(name = pname.decode('utf-8'), type = ptype.decode('utf-8'), location = plocation.decode('utf-8'), description=pdescription.decode('utf-8'),value = pvalue.decode('utf-8'),type_id = ty.id)
+        session.add(p)
+        session.commit()
+        return p
+
+
+parks_info = pd.read_csv('parks.csv')
+parks_info.drop_duplicates(subset='Name',inplace=True)
+parks_info=parks_info.reset_index()
+for i in range(len(parks_info)):
+    get_and_write_parks(parks_info['Name'][i],parks_info['Type'][i],parks_info['Location'][i],parks_info['Description'][i],parks_info['Value'][i])
 
 
 
-#
-# class Historical_Park(National_Park):
-#     def fname(arg):
-#         pass
-#
-#
-# class National_Monument(National_Park):
-#     def fname(arg):
-#         pass
-#
-#
-# class National_Military_Park(National_Park):
-#     def fname(arg):
-#         pass
-#
-#
-# class National_Preserve(National_Park):
-#     def fname(arg):
-#         pass
-#
-#
-# class National_Heritage_Area(National_Park):
-#     def fname(arg):
-#         pass
 
 
+
+
+
+
+
+############Flask Routes
 class ReusableForm(Form):
     name = TextField('Name:', validators=[validators.required()])
     email = TextField('Email:', validators=[validators.required(), validators.Length(min=6, max=35)])
@@ -181,32 +263,37 @@ def home_page():
     else:
         flash('Error: All the form fields are required. ')
 
-    # if form.validate_on_password():
-        # return redirect('/index')
 
     return render_template('hello.html', form=form)
 
 
-@app.route("/parks")#http://127.0.0.1:5000/index
+@app.route("/all_info")#http://127.0.0.1:5000/all_info
+def all_info():
+    parks = National_Park.query.all()
+    topics = Topic.query.all()
+    activitis = Activity.query.all()
+    states = State.query.all()
+    return render_template('all_info.html',parks=parks,topics = topics,activitis=activitis,states=states)
+
+
+@app.route("/parks")#http://127.0.0.1:5000/parks
 def parks():
-    return render_template('index.html')
-
-#
-#
-# @app.route("/parks")#http://127.0.0.1:5000/parks
-# def parks():
-#     return render_template('parks.html')
+    parks = National_Park.query.all()
+    return render_template('parks.html', parks = parks)
 
 
+@app.route("/design")#http://127.0.0.1:5000/design
+def design():
+    return render_template('design.html')
 
 
 
-chromedriver =  "/Users/caizuyi/Downloads/SI\ 507/final_project/chromedriver"
-os.environ["webdriver.chrome.driver"] = chromedriver
 
 
 @app.route('/query-example')#http://127.0.0.1:5000/query-example?state=AK&activity=3&topic=4
 def query_example():
+    chromedriver =  "/Users/caizuyi/Downloads/chromedriver"
+    os.environ["webdriver.chrome.driver"] = chromedriver
     state = request.args.get('state') #if key doesn't exist, returns None
     activity = request.args['activity'] #if key doesn't exist, returns a 400, bad request error
     topic = request.args.get('topic')
@@ -230,16 +317,11 @@ def query_example():
         name=r.find_all('h3')
         type=r.find_all('span')
         state=r.find_all('p')
-        # print(img[0])#how to deal with image info?---image
-        # print(name[0].text)#---park.name
-        # print(type[0].text)#---park.type
-        # print(state[0].text)#---park.state
         name=name[0].text
         type=type[0].text
 
 
-    return '''The {},{},{}'''.format(state,activity,topic)
-
+    return render_template('query_example.html',state = state,activity = activity, topic = topic, name = name, type = type)
 
 
 

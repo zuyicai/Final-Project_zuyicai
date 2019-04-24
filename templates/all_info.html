@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>JavaScript Discussion</title>
+
+<script type="text/javascript">
+	alert("You have signed in successfully");
+	console.log("hello in console");
+
+	function displayInformation () {
+		document.querySelector('h1').innerHTML = "National Parks showed by Zuyi Cai";
+		document.querySelector("#URL").innerHTML = 'http://127.0.0.1:5000/all_info'; // URI means something like URL -- slight differences for specificity
+		document.querySelector('#parks').innerHTML = document.getElementsByTagName('li').length
+		document.querySelector('#topic').innerHTML = document.getElementsByTagName('a').length
+		document.querySelector('#activity').innerHTML = document.getElementsByTagName('c').length
+		document.querySelector('#state').innerHTML = document.getElementsByTagName('e').length
+		document.querySelector('#time').innerHTML = new Date();
+		var body = document.querySelector('body')
+		body.style.background = "#ffe6e6";
+		// One place to find color option codes: https://www.w3schools.com/colors/colors_picker.asp
+		body.style.margin = "10%";
+	}
+	
+	function copyFunction(){
+		document.querySelector('#cheer').innerHTML += "Go blue!<br>"
+	}
+
+	function copyFunction_canada(){
+		document.querySelector('#count').innerHTML += "0 Canada<br>"
+	}
+
+	function handleClick(){
+		alert("hello");
+	}
+
+	function DateClick(){
+		alert("March 20, 2019");
+	}
+</script>
+<style>
+p{
+	background-color: #ffcccc;
+	border: 3px solid #ff9999;
+	padding: 3%;
+	font-size: 1.1em;
+	line-height: 1.5;
+}
+</style>
+</head>
+<body onload = "displayInformation();">
+	<h1>Zuyi Cai</h1>
+	<h2>Using JavaScript to display information on this dynamic page:</h2>
+	<p>
+		The URL of this page is: <span id = "URL"></span><br/>
+		The number of National parks in the US: <span id = "parks"></span><br/>
+		The current date/time is: <span id = "time"></span><br/>
+	</p>
+	<ul>
+		{% for park in parks %}
+		<li>{{park['name']}}</li>
+		<b>{{park['type']}}</b><br/>
+		{% endfor %}
+	</ul>
+	<p>
+		The following are all topics:<br/>
+		The number of topics in the US: <span id = "topic"></span><br/>
+	</p>
+	<ul>
+		{% for topic in topics %}
+		<a>{{topic['name']}}</a>
+		<b>{{topic['value']}}</b><br/>
+		{% endfor %}
+	</ul>
+	<p>
+		The following are all activities:<br/>
+		The number of activitis in the US: <span id = "activity"></span><br/>
+	</p>
+	<ul>
+		{% for activity in activitis %}
+		<c>{{activity['name']}}</c>
+		<b>{{activity['value']}}</b><br/>
+		{% endfor %}
+	</ul>
+	<p>
+		The following are all states:<br/>
+		The number of states in the US: <span id = "state"></span><br/>
+	</p>
+	<ul>
+		{% for state in states %}
+		<e>{{state['name']}}</e>
+		<b>{{state['value']}}</b><br/>
+		{% endfor %}
+	</ul>
+
+
+
+	<button onclick=handleClick() id="wow-button">Wow</button>
+
+	<button onclick=DateClick() id="date-button">Spring Equinox 2019</button>
+
+</body>
+</html>

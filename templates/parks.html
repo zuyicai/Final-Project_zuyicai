@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>JavaScript Discussion</title>
+
+<script type="text/javascript">
+	alert("Welcome to the National Parks introduction page");
+	console.log("hello in console");
+
+	function displayInformation () {
+		document.querySelector('h1').innerHTML = "National Parks showed by Zuyi Cai";
+		document.querySelector("#URL").innerHTML = 'http://127.0.0.1:5000/parks'; // URI means something like URL -- slight differences for specificity
+		document.querySelector('#parks').innerHTML = document.getElementsByTagName('li').length
+		document.querySelector('#time').innerHTML = new Date();
+		var body = document.querySelector('body')
+		body.style.background = "#e6f3ff";
+		// One place to find color option codes: https://www.w3schools.com/colors/colors_picker.asp
+		body.style.margin = "10%";
+	}
+	//When someone uses the keyboard shortcut to copy the words "University of Michigan" then add the words "Go Blue" to the final div.  Each occurence should be on a separate line.
+	//Note that this code must be outside the other function above
+	function copyFunction(){
+		document.querySelector('#cheer').innerHTML += "Go blue!<br>"
+	}
+
+	function copyFunction_canada(){
+		document.querySelector('#count').innerHTML += "0 Canada<br>"
+	}
+  function handleClick(){
+		prompt("hello","hi");
+	}
+
+</script>
+<style>
+p{
+	background-color: #cce6ff;
+	/* background-color: #b3b3b3; (change the color of the boxes' background)*/
+	border: 3px solid #99ceff;
+	/* border: 3px solid #FFFFFF; */
+	padding: 3%;
+	font-size: 1.1em;
+	line-height: 1.5;
+}
+</style>
+</head>
+<body onload = "displayInformation();">
+	<h1>Zuyi Cai</h1>
+	<h2>Using JavaScript to display information on this dynamic page:</h2>
+	<p>
+		The URL of this page is: <span id = "URL"></span><br/>
+		The number of National parks in the US: <span id = "parks"></span><br/>
+		The current date/time is: <span id = "time"></span><br/>
+	</p>
+  <table style="width:100%">
+
+  <tr>
+    <th>Name</th>
+    <th>Type</th>
+    <th>Location</th>
+		<th>Description</th>
+  </tr>
+  {% for park in parks %}
+  <tr>
+    <td><li>{{park['name']}}</li></td>
+    <td>{{park['type']}}</td>
+    <td>{{park['location']}}</td>
+		<td>{{park['description']}}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+</body>
+</html>
