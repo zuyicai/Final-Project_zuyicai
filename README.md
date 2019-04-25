@@ -2,8 +2,8 @@
 
 Zuyi Cai
 
-[Link to this repository](https://github.com/zuyicai/Final-Project_zuyicai)
-[Link to the database stucture diagram](https://github.com/zuyicai/Final-Project_zuyicai/blob/master/db_final.png)
+* [Link to this repository](https://github.com/zuyicai/Final-Project_zuyicai)
+* [Link to the database stucture diagram](https://github.com/zuyicai/Final-Project_zuyicai/blob/master/db_final.png)
 * ![Alt text](https://github.com/zuyicai/Final-Project_zuyicai/blob/master/db_final.png)
 
 ---
@@ -77,7 +77,7 @@ python SI507project_tools.py
 
 ---
 ## How to use
-1. You may need first loading http://localhost:5000/[also the first route] to make the application running.
+1. You may need first loading http://localhost:5000/ [also the first route] to make the application running.
 2. Then you can either go to other routes by the links on the home page or type the URLs of other four routes to go to other pages.
 3. Be careful about the fifth route because it requires you to make a plan by route four(`/plan`) before then follow the instruction to go to the fifth route.
 4. Please follow the instruction listed on the page and listed following to make sure the application running well. Enjoy it!
@@ -85,7 +85,7 @@ python SI507project_tools.py
 ## Routes in this application
 ### First route(`/`)
 - `/` -> The home page of the Flask application. This page is a form that users need to input their name, email and password to register(used a new module called "wtforms"). After they submit the information and click the button they will directly go to the '/all_info' page.
-* In this page, you will see a following picture. And this is a reusable form that users can input their information to register, once they register successfully, they will be directed to the second route without typing in the URL bar. And I have links in the views of the Flask application page/s that allow a user to navigate the application and view all its routes without typing in the URL bar (after first loading http://localhost:5000/[this first route] with the application running).
+* In this page, you will see a following picture. And this is a reusable form that users can input their information to register, once they register successfully, they will be directed to the second route without typing in the URL bar. And I have links in the views of the Flask application page/s that allow a user to navigate the application and view all its routes without typing in the URL bar (after first loading http://localhost:5000/ [this first route] with the application running).
 * ![Alt text](https://github.com/zuyicai/image/blob/master/final_project/Screen%20Shot%202019-04-24%20at%209.32.35%20PM.png)
 * The following picture is what users will see after they register successfully.
 * ![Alt text](https://github.com/zuyicai/image/blob/master/final_project/Screen%20Shot%202019-04-24%20at%209.32.56%20PM.png)
