@@ -9,7 +9,7 @@ Zuyi Cai
 1. I have SI507project_tools.py including all classes(National_Park, State, Topic, Activity and Type) I will use for my project.
 I have caching.py to scrape the data I will use for my project. In which it will create allinfo_parks.json and states_info.csv, topics_info.csv, activities_info.csv. And these three csvs I will use in SI507project_tools.py to write in the database.
 I have parks.csv, which is copyed from project4, I will directly use this data in one of my route of flask.
-In SI507project_tools.py, I created all classes and write the data into the database by three functions(get_or_create_topic, get_or_create_activities, get_or_create_states). I used a new module called selenium to create a fake chrome to scrap data from a website needed higher permission. And I used another new module called wtforms to create the form view in my flask application. 
+In SI507project_tools.py, I created all classes and write the data into the database by three functions(get_or_create_topic, get_or_create_activities, get_or_create_states). I used a new module called selenium to create a fake chrome to scrap data from a website needed higher permission. And I used another new module called wtforms to create the form view in my flask application.
 
 At this point, I have access to ALL of the data I need for my project.(one is got from caching.py and another one is parks.csv from project 4)
 
@@ -25,7 +25,7 @@ At this point, I have access to ALL of the data I need for my project.(one is go
 
 ## Project Description
 
-My Project is designed for people who want to search detailed information of National Parks in the US and who want to get a straightforward instruction of all parks. In my Flask application, users are able to get identical park travel plan determined by their own interests.
+My Project is designed for people who want to search detailed information of National Parks in the US and who want to get a straightforward instruction of all parks. In my Flask application, users are able to get identical park travel plan determined by their own interests, which means they can view the information for specific park and make interaction with the application in order to get the result satisfied their demands.
 
 
 
@@ -60,6 +60,29 @@ Deactivate
 python SI507project_tools.py
 ```
 * Check out what’s happening in your terminal window!
+* ![Alt text](https://github.com/zuyicai/image/blob/master/final_project/Screen%20Shot%202019-04-24%20at%209.18.30%20PM.png)
+* And the place where you cloned to will create the following files:
+* ![Alt text](https://github.com/zuyicai/image/blob/master/final_project/Screen%20Shot%202019-04-24%20at%209.18.57%20PM.png)
+* The file called "states_info.csv" looks like:
+* ![Alt text](https://github.com/zuyicai/image/blob/master/final_project/Screen%20Shot%202019-04-24%20at%209.19.21%20PM.png)
+* The file called "topics_info.csv" looks like:
+* ![Alt text](https://github.com/zuyicai/image/blob/master/final_project/Screen%20Shot%202019-04-24%20at%209.19.33%20PM.png)
+* The file called "activities_info.csv" looks like:
+* ![Alt text](https://github.com/zuyicai/image/blob/master/final_project/Screen%20Shot%202019-04-24%20at%209.19.43%20PM.png)
+* And the created database contains five tables: National_Park, States, Topics, Types and Activities.
+* This picture is for Activities:
+* ![Alt text](https://github.com/zuyicai/image/blob/master/final_project/Screen%20Shot%202019-04-24%20at%209.20.09%20PM.png)
+* This picture is for National_Park:
+* ![Alt text](https://github.com/zuyicai/image/blob/master/final_project/Screen%20Shot%202019-04-24%20at%209.20.29%20PM.png)
+* This picture is for States:
+* ![Alt text](https://github.com/zuyicai/image/blob/master/final_project/Screen%20Shot%202019-04-24%20at%209.20.47%20PM.png)
+* This picture is for Topics:
+* ![Alt text](https://github.com/zuyicai/image/blob/master/final_project/Screen%20Shot%202019-04-24%20at%209.20.56%20PM.png)
+* This picture is for Types:
+* ![Alt text](https://github.com/zuyicai/image/blob/master/final_project/Screen%20Shot%202019-04-24%20at%209.21.21%20PM.png)
+
+
+
 
 ## How to use
 
@@ -67,15 +90,34 @@ python SI507project_tools.py
 2. A useful second step here
 
 ## Routes in this application
-- `/` -> The home page of the Flask application
-This page is a form that users need to input their name, email and password to register. After they submit the information and click the button they will directly go to the '/parks' page.
+### First route(`/`)
+- `/` -> The home page of the Flask application. This page is a form that users need to input their name, email and password to register(used a new module called "wtforms"). After they submit the information and click the button they will directly go to the '/all_info' page.
 
-- `/parks` -> The detailed information of all parks
-This page will be showed in a form or a table. (it still need to be assigned)
+### Second route(`/all_info`)
+- `/all_info` ->  In this route, the application shows all parks with their type, all topics with their values, all activities with their values and all states with their values. Here I used the JavaScript files in the application that affect the view in html template.
+* Once you submit successfully in the home page or you type the url of second route or you click the link of second route, you will be directed to all_info page. And you will see the following picture:
+* ![Alt text](https://github.com/zuyicai/image/blob/master/final_project/Screen%20Shot%202019-04-24%20at%209.24.54%20PM.png)
+* And you will see this page looks like the following picture, it shows all National_Park names with their type.
+* ![Alt text](https://github.com/zuyicai/image/blob/master/final_project/Screen%20Shot%202019-04-24%20at%209.25.30%20PM.png)
+* And this following picture shows all topics with their values.
+* ![Alt text](https://github.com/zuyicai/image/blob/master/final_project/Screen%20Shot%202019-04-24%20at%209.25.52%20PM.png)
+* And this following picture shows all activities with their values.
+* ![Alt text](https://github.com/zuyicai/image/blob/master/final_project/Screen%20Shot%202019-04-24%20at%209.26.17%20PM.png)
+* And this following picture shows all states with their values.
+* ![Alt text](https://github.com/zuyicai/image/blob/master/final_project/Screen%20Shot%202019-04-24%20at%209.26.26%20PM.png)
 
-- `/query-example` -> The detail of a user's selection
-http://127.0.0.1:5000/query-example?state=AK&activity=3&topic=4
-In this url, users need to input the state value, activity value and topic value to specify their selection. And I will show them the original website including the parks satisfied their inputs and the clear information in my application window.
+
+### Third route(`/parks`)
+- `/parks` -> The detailed information of all parks including name, type, location, description and states. Here I also used the JavaScript files in the application that affect the view in html template, and I used table in the html in order to make the parks information in order.
+
+### Fourth route(`/plan`)
+- `/plan` -> In this route, there is an instruction telling users how to input values into the pop-up Dialog Box. In this way, the application will give users a url. Once users input the url, they will directly go to the next route `/query_example` to get their searching results.
+
+### Fifth route(`/query_example`)
+- `/query-example` -> The detail of a user's selection.(e.g.http://127.0.0.1:5000/query-example?state=AK&activity=3&topic=4) After users run this route, the original website including the parks satisfied their inputs and the clear information will automatically show up(used a new module called "selenium"), and the flask page will show the result text and parks' name of the searching results.
+* You will see the following picture in the flask page:
+* ![Alt text](https://github.com/zuyicai/image/blob/master/final_project/Screen%20Shot%202019-04-24%20at%2011.29.33%20PM.png)
+
 
 
 ## How to run tests
@@ -87,19 +129,25 @@ NOTE: Need not have 3 steps, but should have as many as are appropriate!
 ## In this repository:
 - Templates
   - index.html
-  - hello.html
+  - all_info.html
+  - parks.html
+  - plan.html
+  - query_example.html
 - SI507project_tools.py
 - SI507project_tests.py
-- caching.py
 - parks.csv
 - advanced_expiry_caching.py
 - chromedriver
+- README.md
+- requirements.txt
+- db.final
+* ![Alt text](https://github.com/zuyicai/image/blob/master/final_project/Screen%20Shot%202019-04-24%20at%209.17.27%20PM.png)
 
 ---
 ## Code Requirements for Grading
 Please check the requirements you have accomplished in your code as demonstrated.
-- [ ] This is a completed requirement.
-- [x] This is an incomplete requirement.
+- [x] This is a completed requirement.
+- [ ] This is an incomplete requirement.
 
 Below is a list of the requirements listed in the rubric for you to copy and paste.  See rubric on Canvas for more details.
 
@@ -107,19 +155,19 @@ Below is a list of the requirements listed in the rubric for you to copy and pas
 - [x] Project is submitted as a Github repository
 - [x] Project includes a working Flask application that runs locally on a computer
 - [x] Project includes at least 1 test suite file with reasonable tests in it.
-- [ ] Includes a `requirements.txt` file containing all required modules to run program
-- [ ] Includes a clear and readable README.md that follows this template
+- [x] Includes a `requirements.txt` file containing all required modules to run program
+- [x] Includes a clear and readable README.md that follows this template
 - [x] Includes a sample .sqlite/.db file
 - [x] Includes a diagram of your database schema
 - [x] Includes EVERY file needed in order to run the project
-- [ ] Includes screenshots and/or clear descriptions of what your project should look like when it is working
+- [x] Includes screenshots and/or clear descriptions of what your project should look like when it is working
 
 ### Flask Application
-- [ ] Includes at least 3 different routes
-- [ ] View/s a user can see when the application runs that are understandable/legible for someone who has NOT taken this course
-- [ ] Interactions with a database that has at least 2 tables
-- [ ] At least 1 relationship between 2 tables in database
-- [ ] Information stored in the database is viewed or interacted with in some way
+- [x] Includes at least 3 different routes
+- [x] View/s a user can see when the application runs that are understandable/legible for someone who has NOT taken this course
+- [x] Interactions with a database that has at least 2 tables
+- [x] At least 1 relationship between 2 tables in database
+- [x] Information stored in the database is viewed or interacted with in some way
 
 ### Additional Components (at least 6 required)
 - [x] Use of a new module
