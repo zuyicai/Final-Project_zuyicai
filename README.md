@@ -38,6 +38,13 @@ My Project is designed for people who want to search detailed information of Nat
 git clone <git url>
 ```
 * `cd` into where the project lives
+* Attention!!! Before you run the application, please change the path of "chromedriver" in the code file "SI507project_tools.py" to the place you installed "chromedriver" in.
+```
+chromedriver =  "/Users/<user_name>/Downloads/<the place>/Final_Project_zuyicai/chromedriver"
+```
+Just like the following picture:
+* ![Alt text](https://github.com/zuyicai/image/blob/master/final_project/5.png)
+* Because I need "chromedriver" installed and ran appropriatly to make sure the fifth route in Flask running well! After this step, go ahead!
 * Create a virtual environment for it
 ```
 virtualenv env
@@ -85,13 +92,18 @@ python SI507project_tools.py
 
 
 ## How to use
-
-1. A useful instruction goes here
-2. A useful second step here
+1. You may need first loading http://localhost:5000/[also the first route] to make the application running.
+2. Then you can either go to other routes by the links on the home page or type the URLs of other four routes to go to other pages.
+3. Be careful about the fifth route because it requires you to make a plan by route four(`/plan`) before then follow the instruction to go to the fifth route.
+4. Please follow the instruction listed on the page and listed following to make sure the application running well. Enjoy it!
 
 ## Routes in this application
 ### First route(`/`)
 - `/` -> The home page of the Flask application. This page is a form that users need to input their name, email and password to register(used a new module called "wtforms"). After they submit the information and click the button they will directly go to the '/all_info' page.
+* In this page, you will see a following picture. And this is a reusable form that users can input their information to register, once they register successfully, they will be directed to the second route without typing in the URL bar. And I have links in the views of the Flask application page/s that allow a user to navigate the application and view all its routes without typing in the URL bar (after first loading http://localhost:5000/[this first route] with the application running).
+* ![Alt text](https://github.com/zuyicai/image/blob/master/final_project/Screen%20Shot%202019-04-24%20at%209.32.35%20PM.png)
+* The following picture is what users will see after they register successfully.
+* ![Alt text](https://github.com/zuyicai/image/blob/master/final_project/Screen%20Shot%202019-04-24%20at%209.32.56%20PM.png)
 
 ### Second route(`/all_info`)
 - `/all_info` ->  In this route, the application shows all parks with their type, all topics with their values, all activities with their values and all states with their values. Here I used the JavaScript files in the application that affect the view in html template.
@@ -109,22 +121,60 @@ python SI507project_tools.py
 
 ### Third route(`/parks`)
 - `/parks` -> The detailed information of all parks including name, type, location, description and states. Here I also used the JavaScript files in the application that affect the view in html template, and I used table in the html in order to make the parks information in order.
+* You will see the following picture once you go to this route. And here I used a table to show the parks information.
+* ![Alt text](https://github.com/zuyicai/image/blob/master/final_project/Screen%20Shot%202019-04-24%20at%209.33.15%20PM.png)
 
 ### Fourth route(`/plan`)
 - `/plan` -> In this route, there is an instruction telling users how to input values into the pop-up Dialog Box. In this way, the application will give users a url. Once users input the url, they will directly go to the next route `/query_example` to get their searching results.
+* This picture shows the instruction of this route, please follow this instruction while inputting values:
+* ![Alt text](https://github.com/zuyicai/image/blob/master/final_project/Screen%20Shot%202019-04-24%20at%209.51.56%20PM.png)
+* Once you click the "Enter Value" button, you will see the following picture. First please input the value of you selected state (here I choose "UT")
+* ![Alt text](https://github.com/zuyicai/image/blob/master/final_project/Screen%20Shot%202019-04-24%20at%209.39.22%20PM.png)
+* Secondly, please input the value of your selected activity(here I choose "31")
+* ![Alt text](https://github.com/zuyicai/image/blob/master/final_project/Screen%20Shot%202019-04-24%20at%209.39.34%20PM.png)
+* Finally, please input the value of your selected topic(here I choose "6")
+* ![Alt text](https://github.com/zuyicai/image/blob/master/final_project/Screen%20Shot%202019-04-24%20at%209.39.45%20PM.png)
+* Then you will get the URL of your selection result.
+* ![Alt text](https://github.com/zuyicai/image/blob/master/final_project/Screen%20Shot%202019-04-24%20at%209.40.57%20PM.png)
+* The following pictures are another example with state value="MI", activity value="3", topic value="9":
+* ![Alt text](https://github.com/zuyicai/image/blob/master/final_project/Screen%20Shot%202019-04-24%20at%209.42.55%20PM.png)
+* ![Alt text](https://github.com/zuyicai/image/blob/master/final_project/Screen%20Shot%202019-04-24%20at%209.43.04%20PM.png)
+* ![Alt text](https://github.com/zuyicai/image/blob/master/final_project/Screen%20Shot%202019-04-24%20at%209.43.36%20PM.png)
+
+
+
 
 ### Fifth route(`/query_example`)
 - `/query-example` -> The detail of a user's selection.(e.g.http://127.0.0.1:5000/query-example?state=AK&activity=3&topic=4) After users run this route, the original website including the parks satisfied their inputs and the clear information will automatically show up(used a new module called "selenium"), and the flask page will show the result text and parks' name of the searching results.
 * You will see the following picture in the flask page:
 * ![Alt text](https://github.com/zuyicai/image/blob/master/final_project/Screen%20Shot%202019-04-24%20at%2011.29.33%20PM.png)
+* Followed by the example given in fourth route(state value="UT", activity value="31", topic value="6"), once the user input the given url, they will see a pop-up website like this, this website id the original website of user selection. Here please wait with patience because it usually need 10 seconds to make everything in order.
+* ![Alt text](https://github.com/zuyicai/image/blob/master/final_project/Screen%20Shot%202019-04-24%20at%209.41.43%20PM.png)
+* ![Alt text](https://github.com/zuyicai/image/blob/master/final_project/Screen%20Shot%202019-04-24%20at%209.41.51%20PM.png)
+* And the flask page will give the result like this(Because there is no park satisfying this selection):
+* ![Alt text](https://github.com/zuyicai/image/blob/master/final_project/2.png)
+* Followed by the example(state value="MI", activity value="3", topic value="9"), users will see:
+* ![Alt text](https://github.com/zuyicai/image/blob/master/final_project/Screen%20Shot%202019-04-24%20at%209.44.11%20PM.png)
+* And the flask page will give the result like this:
+* ![Alt text](https://github.com/zuyicai/image/blob/master/final_project/1.png)
+* And if you have a selection like state value="MI", you will see the following result:
+* ![Alt text](https://github.com/zuyicai/image/blob/master/final_project/3.png)
+
+
 
 
 
 ## How to run tests
-1. First... (e.g. access a certain directory if necessary)
-2. Second (e.g. any other setup necessary)
-3. etc (e.g. run the specific test file)
-NOTE: Need not have 3 steps, but should have as many as are appropriate!
+1. `cd` into where the project lives, run the "SI507project_tools.py" First
+```
+python SI507project_tools.py
+```
+2. Then just run the "SI507project_tests.py" file to see whether this program going well
+```
+python SI507project_tests.py
+```
+3. Then you will see the following picture:
+* ![Alt text](https://github.com/zuyicai/image/blob/master/final_project/4.png)
 
 ## In this repository:
 - Templates

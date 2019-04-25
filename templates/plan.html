@@ -1,0 +1,32 @@
+<html>
+<body>
+<input type=button value="Enter Value" onclick="myinput();" >
+</body>
+
+<script language="javascript">
+function myinput(){
+  var state=prompt("Please enter the state value:");
+  var activit=prompt("Please enter the activity value:");
+  var activity = parseInt(activit);
+  var topi=prompt("Please enter the topic value:");
+  var topic = parseInt(topi);
+  if (state!=null){
+    alert("Please copy the following URL and paste in the URL bar to get the result: http://127.0.0.1:5000/query-example?state="+state+"&activity="+activity+"&topic="+topic);
+  }else{
+    alert("Your input has something wrong. Please check!");
+  }
+}
+
+</script>
+<h3>Please use the values you get from all_info page: http://127.0.0.1:5000/all_info</h3>
+<div>
+        Quick url for all_info page:
+        <a href="/all_info">All Information</a>
+    </div>
+<h3>Please remeber the values of your selected state, activity and topic, and input these values one by one with clicking on the above button.</h3>
+<h3>If you only input two values(e.g. topic and state), then you can need to delete the activity value in the output URL.</h3>
+  <h3>(e.g."http://127.0.0.1:5000/query-example?state=MI&topic=9")</h3>
+<h3>If you only input one value(e.g. state),then you need to edit the output URL like this.</h3>
+<h3>(e.g."http://127.0.0.1:5000/query-example?state=MI")</h3>
+<h2>Hope you satisfied with your travel plan!</h2>
+</html>

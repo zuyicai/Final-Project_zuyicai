@@ -264,7 +264,7 @@ def home_page():
         flash('Error: All the form fields are required. ')
 
 
-    return render_template('hello.html', form=form)
+    return render_template('index.html', form=form)
 
 
 @app.route("/all_info")#http://127.0.0.1:5000/all_info
@@ -282,9 +282,9 @@ def parks():
     return render_template('parks.html', parks = parks)
 
 
-@app.route("/design")#http://127.0.0.1:5000/design
+@app.route("/plan")#http://127.0.0.1:5000/plan
 def design():
-    return render_template('design.html')
+    return render_template('plan.html')
 
 
 
@@ -292,10 +292,10 @@ def design():
 
 @app.route('/query-example')#http://127.0.0.1:5000/query-example?state=AK&activity=3&topic=4
 def query_example():
-    chromedriver =  "/Users/caizuyi/Downloads/chromedriver"
+    chromedriver =  "/Users/caizuyi/Downloads/chromedriver"# please change the path to where you install chromedriver in
     os.environ["webdriver.chrome.driver"] = chromedriver
     state = request.args.get('state') #if key doesn't exist, returns None
-    activity = request.args['activity'] #if key doesn't exist, returns a 400, bad request error
+    activity = request.args.get('activity') #request.args['activity']:if key doesn't exist, returns a 400, bad request error
     topic = request.args.get('topic')
     driver = webdriver.Chrome(chromedriver)
 
@@ -309,22 +309,31 @@ def query_example():
     soup = BeautifulSoup(data, "html.parser") # html.parser string argument tells BeautifulSoup that it should work in the nice html way
 
     results_text = soup.find_all(id="ListingHeaderResults")
-    # print(results_text[0].text)##the results sentence
+    if results_text[0].text == "Showing 0 - 0 of 0 results":
+        return "There is no eligible park of your selection, please change your selection of values and try again :)"
+        # print(results_text[0].text)##the results sentence
+    else:
+        results = soup.find_all(id="ListingResultsGrid")
+        n = []
+        t = []
+        s = []
+        for r in results:
+            sname=r.find_all('h3')# name list
+            for i in sname:
+                n.append(i.text)
+            stype=r.find_all('span')
+            for i in stype:
+                t.append(i.text)
+            sstate=r.find_all('p')
+            for i in sstate:
+                s.append(i.text)
+        # with open('user_selection.csv','w') as f:
+        #     writecsv = csv.writer(f)
+        #     writecsv.writerow(['name','type','state'])
+        #     for i in range(len(n)):
+        #         writecsv.writerow([n[i].decode('utf-8'),t[i].decode('utf-8'),s[i].decode('utf-8')])
 
-    results = soup.find_all(id="ListingResultsGrid")
-    for r in results:
-        img=r.find_all('a')
-        name=r.find_all('h3')
-        type=r.find_all('span')
-        state=r.find_all('p')
-        name=name[0].text
-        type=type[0].text
-
-
-    return render_template('query_example.html',state = state,activity = activity, topic = topic, name = name, type = type)
-
-
-
+        return render_template('query_example.html',result = results_text[0].text, name = n,a=activity,t=topic,s=state)
 
 
 

@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<!-- <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<title>JavaScript Discussion</title>
 
 <script type="text/javascript">
-	alert("Welcome to the National Parks introduction page");
+	alert("Welcome! Please prepare to get your searching results :) ");
 	console.log("hello in console");
 
 	function displayInformation () {
-		document.querySelector('h1').innerHTML = "National Parks showed by Zuyi Cai";
+		document.querySelector('h1').innerHTML = "Searching results selected by Zuyi Cai";
 		document.querySelector('#parks').innerHTML = document.getElementsByTagName('li').length
 		document.querySelector('#time').innerHTML = new Date();
 		var body = document.querySelector('body')
@@ -22,7 +22,7 @@
 
 	}
 
-</script>
+</script> -->
 <style>
 p{
 	background-color: #cce6ff;
@@ -34,18 +34,38 @@ p{
 	line-height: 1.5;
 }
 </style>
-</head>
-<body onload = "displayInformation();">
+<!-- </head>
+<body onload = "displayInformation();"> -->
 	<h1>Zuyi Cai</h1>
-	<h2>Using JavaScript to display information on this dynamic page:</h2>
-	<p>
-		The number of selected parks in the US: <span id = "parks"></span><br/>
+	<h2>{{result}}</h2>
+	<!-- <p>
+		The number of National parks satisfied your selection: <span id = "parks"></span><br/>
 		The current date/time is: <span id = "time"></span><br/>
-	</p>
-<ul>
-<li>{{state}}</li>
-<li>{{activity}}</li>
-<li>{{topic}}</li>
-<\ul>
+	</p> -->
+
+	<ul>
+		{% for n in name %}
+		<li>{{n}}</li>
+		{% endfor %}
+	</ul>
+<!--
+	<ul>
+		{% for t in type %}
+		<li>{{t}}</li>
+		{% endfor %}
+	</ul>
+
+	<ul>
+		{% for s in state %}
+		<li>{{s}}</li>
+		{% endfor %}
+	</ul> -->
+	<h2>You searched for parks that contain all of the following attributes:</h2>
+	<h3>State value: {{s}}</h3>
+	<h3>Activity value:{{a}}</h3>
+	<h3>Topic value: {{t}}</h3>
+
+
+<!--
 </body>
-</html>
+</html> -->
