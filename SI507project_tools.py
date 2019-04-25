@@ -259,7 +259,7 @@ def home_page():
 
     if form.validate():
         flash('Thanks for registration ' + name)
-        return redirect('/index')
+        return redirect('/all_info')
     else:
         flash('Error: All the form fields are required. ')
 
