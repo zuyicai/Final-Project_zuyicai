@@ -23,14 +23,14 @@ My Project is designed for people who want to search detailed information of Nat
 git clone <git url>
 ```
 * `cd` into where the project lives
-* Attention!!! Before you run the application, please change the path of "chromedriver" in the code file "SI507project_tools.py" to the place you installed "chromedriver" in.
+* Attention!!! Before you run the application, please change the path of "chromedriver" in the code file "SI507project_tools.py" to the place you installed "chromedriver" in. Actually I include "chromedriver" in my repository, so you just need to change the path to the place where you clone the repository. For example, if you clone my repo to "/Downloads", please change the path as below:
 ```
-chromedriver =  "/Users/<user_name>/Downloads/<the place>/Final_Project_zuyicai/chromedriver"
+chromedriver =  "/Users/<user_name>/Downloads/Final_Project_zuyicai/chromedriver"
 ```
-Just like the following picture:
+Please change the line 295 in "SI507project_tools.py" with above path. Just like the following picture(This picture shows that I saved the "chromdriver" under the "Downloads" directory):
 * ![Alt text](https://github.com/zuyicai/image/blob/master/final_project/5.png)
-* Because I need "chromedriver" installed and ran appropriatly to make sure the fifth route in Flask running well! After this step, go ahead!
-* Create a virtual environment for it
+* Because I need "chromedriver" installed and ran appropriatly to make sure the fifth route in Flask running well! If it doesn't work, please install chromedriver by https://chromedriver.storage.googleapis.com/index.html?path=73.0.3683.68/ , choose the version with your computer and install it into the directory you cloned to, then change the line 295 in "SI507project_tools.py" to the path of "chromedriver" as well. Remember to save your change! After this step, go ahead!
+* With all changes and installation steps done, create a virtual environment for it
 ```
 virtualenv env
 ```
