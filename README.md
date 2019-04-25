@@ -4,7 +4,7 @@ Zuyi Cai
 
 [Link to this repository](https://github.com/zuyicai/Final-Project_zuyicai)
 [Link to the database stucture diagram](https://github.com/zuyicai/Final-Project_zuyicai/blob/master/db_final.png)
-* ![Alt text](https://github.com/zuyicai/image/blob/master/db_final.png)
+* ![Alt text](https://github.com/zuyicai/Final-Project_zuyicai/blob/master/db_final.png)
 
 ---
 
