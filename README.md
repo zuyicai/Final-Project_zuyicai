@@ -3,31 +3,16 @@
 Zuyi Cai
 
 [Link to this repository](https://github.com/zuyicai/Final-Project_zuyicai)
+[Link to the database stucture diagram](https://github.com/zuyicai/Final-Project_zuyicai/blob/master/db_final.png)
+* ![Alt text](https://github.com/zuyicai/image/blob/master/db_final.png)
 
 ---
-## At This Moment(For Check in Assignment)
-1. I have SI507project_tools.py including all classes(National_Park, State, Topic, Activity and Type) I will use for my project.
-I have caching.py to scrape the data I will use for my project. In which it will create allinfo_parks.json and states_info.csv, topics_info.csv, activities_info.csv. And these three csvs I will use in SI507project_tools.py to write in the database.
-I have parks.csv, which is copyed from project4, I will directly use this data in one of my route of flask.
-In SI507project_tools.py, I created all classes and write the data into the database by three functions(get_or_create_topic, get_or_create_activities, get_or_create_states). I used a new module called selenium to create a fake chrome to scrap data from a website needed higher permission. And I used another new module called wtforms to create the form view in my flask application.
-
-At this point, I have access to ALL of the data I need for my project.(one is got from caching.py and another one is parks.csv from project 4)
-
-2. I have a code file SI507project_tests.py which includes a test suite with reasonable tests for the code in SI507project_tools.py. Although it couldn't pass at this moment, I am trying to test the data input of the database.
-
-3. I created milestones and issues at the beginning of my project and now some of them are completed.
-
-4. This is a draft of my README.md file, using the README template. It's not complete at this time but I already did the completed parts and leave the remaining to be finished. Next, I need to write html file to design the view of flask url, such as the table and the form. And the second route(\parks) still need to write data information into the output.
-
-5. Here I show the database schema diagram showing the tables I had in my database. Here I plan to use many to many relationship, but I haven't done it(Already satisfy 6 requirements, I decide to do it if I have time)
-* [Link to this diagram](https://github.com/zuyicai/Final-Project_zuyicai/blob/master/db_final.png)
-* ![Alt text](https://github.com/zuyicai/image/blob/master/db_final.png)
 
 ## Project Description
 
 My Project is designed for people who want to search detailed information of National Parks in the US and who want to get a straightforward instruction of all parks. In my Flask application, users are able to get identical park travel plan determined by their own interests, which means they can view the information for specific park and make interaction with the application in order to get the result satisfied their demands.
 
-
+---
 
 ## How to run
 
@@ -90,7 +75,7 @@ python SI507project_tools.py
 
 
 
-
+---
 ## How to use
 1. You may need first loading http://localhost:5000/[also the first route] to make the application running.
 2. Then you can either go to other routes by the links on the home page or type the URLs of other four routes to go to other pages.
@@ -162,7 +147,7 @@ python SI507project_tools.py
 
 
 
-
+---
 
 ## How to run tests
 1. `cd` into where the project lives, run the "SI507project_tools.py" First
@@ -175,7 +160,7 @@ python SI507project_tests.py
 ```
 3. Then you will see the following picture:
 * ![Alt text](https://github.com/zuyicai/image/blob/master/final_project/4.png)
-
+---
 ## In this repository:
 - Templates
   - index.html
@@ -191,7 +176,8 @@ python SI507project_tests.py
 - README.md
 - requirements.txt
 - db.final
-* ![Alt text](https://github.com/zuyicai/image/blob/master/final_project/Screen%20Shot%202019-04-24%20at%209.17.27%20PM.png)
+- parks_collection.db
+* ![Alt text](https://github.com/zuyicai/image/blob/master/final_project/6.png)
 
 ---
 ## Code Requirements for Grading
